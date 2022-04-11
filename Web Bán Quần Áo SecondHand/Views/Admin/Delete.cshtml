@@ -1,0 +1,97 @@
+﻿@model Web_Bán_Quần_Áo_SecondHand.Models.SanPham
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        
+            <div class="card">
+                <h5 class="card-header">Xóa sản phẩm</h5>
+                <div class="card-body">
+                    
+        <dt>
+            Mã Loại:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaLoai)
+        </dd>
+
+        <dt>
+            Mã Thương Hiệu:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaTH)
+        </dd>
+
+        <dt>
+            Mã Sản Phẩm:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenSP)
+        </dd>
+
+        <dt>
+            Đơn Giá:
+        </dt>
+
+        <dd>
+            @String.Format("{0:0,0}₫", Model.DonGia)
+        </dd>
+
+        <dt>
+            Ngày Nhập:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NgayNhap)
+        </dd>
+
+        <dt>
+            Hình Ảnh:
+        </dt>
+
+        <dd>
+            <img src="@Url.Content( Model.Image)" width="300px" />
+        </dd>
+
+        <dt>
+            Chi Tiết:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Details)
+        </dd>
+
+        <dt>
+            Số Lượng Tồn:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SoLuongTon)
+        </dd>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+    <div class="col-sm-6 pl-0">
+        <p class="text-right">
+            <button type="submit" class="btn btn-space btn-primary">Xóa</button>
+            <a href="@Url.Action("Sanpham", "Admin")" button class="btn btn-space btn-secondary">Cancel</a>
+        </p>
+    </div>
+        }
+    </dl>
+</div>
+</div>
+</div>
+

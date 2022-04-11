@@ -1,0 +1,117 @@
+﻿
+@using Web_Bán_Quần_Áo_SecondHand.Models;
+@using PagedList.Mvc;
+@model PagedList.PagedList<Web_Bán_Quần_Áo_SecondHand.Models.SanPham>
+
+
+@{
+    ViewBag.Title = "Sanpham";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    var keyword = TempData["kwd"];
+    }
+
+<p>
+    <h3 style="font-size:26pt;font-family:Tahoma">Quản Lý Sản Phẩm</h3>
+    <div style="padding-left:15px"><i class="fas fa-plus"></i> @Html.ActionLink("Thêm sản phẩm", "Create")</div>
+
+</p>
+
+<table class="table">
+
+    <div style="display:inline-block;width:100%">
+        <div style="float:right">
+            <form action="/Admin/TimKiem" method="post">
+                <form action="/Admin/TimKiem" method="post">
+                    <input type="text" name="keyword" />
+
+                    <button type="submit" style="color:inherit"><i class="fas fa-search"></i></button>
+                </form>
+            </form>
+        </div>
+
+    <tr class="table-primary">
+        <th style="border:double">
+            Mã Loại
+        </th>
+        <th style="border:double">
+            Mã Thương Hiệu
+        </th>
+        <th style="border:double">
+            Tên Sản Phẩm
+        </th>
+        <th style="border:double">
+            Đơn Giá
+        </th>
+        <th style="border:double">
+            Ngày Nhập
+        </th>
+        <th style="border:double">
+            Hình Ảnh
+        </th>
+        <th style="border:double">
+            Chi tiết
+        </th>
+        <th style="border:double">
+            Số Lượng Tồn
+        </th>
+        <th style="border:double"></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td style="border:double">
+                @Html.DisplayFor(modelItem => item.MaLoai)
+            </td>
+            <td style="border:double">
+                @Html.DisplayFor(modelItem => item.MaTH)
+            </td>
+            <td style="border:double">
+                @Html.DisplayFor(modelItem => item.TenSP)
+            </td>
+            <td style="border:double">
+                @String.Format("{0:0,0}₫", item.DonGia)
+            </td>
+            <td style="border:double">
+                @Html.DisplayFor(modelItem => item.NgayNhap)
+            </td>
+            <td style="border:double">
+                <img src="@item.Image" style="width:180px; height: 180px;" />
+            </td>
+            <td style="border:double">
+                @Html.DisplayFor(modelItem => item.Details)
+            </td>
+            <td style="border:double">
+                @Html.DisplayFor(modelItem => item.SoLuongTon)
+            </td>
+            <td style="border:double">
+                <button class="btn btn-sm btn-outline-light">
+                    <i class="fas fa-edit"></i>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.MaSP })
+                </button>
+                <button class="btn btn-sm btn-outline-light">
+                    <i class="fas fa-search-plus"></i>
+                    @Html.ActionLink("Details", "Details", new { id = item.MaSP })
+                </button>
+                <button class="btn btn-sm btn-outline-light">
+                    <i class="far fa-trash-alt"></i>
+                    @Html.ActionLink("Delete", "Delete", new { id = item.MaSP })
+                </button>
+
+            </td>
+        </tr>
+    }
+
+</table>
+<div class="MenuTrang">
+    @Html.PagedListPager(Model, page => Url.Action("Sanpham", new { page = page }))
+</div>
+<style>
+    .MenuTrang * {
+        display: flex;
+        color: black;
+        justify-content: center;
+        font-size: 16pt;
+        padding:5px;
+    }
+</style>

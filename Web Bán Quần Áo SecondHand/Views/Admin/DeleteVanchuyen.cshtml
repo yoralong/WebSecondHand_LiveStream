@@ -1,0 +1,73 @@
+﻿@model Web_Bán_Quần_Áo_SecondHand.Models.CongTy_VanChuyen
+
+@{
+    ViewBag.Title = "DeleteVanchuyen";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<p>
+    <h3 style="font-size:26pt;font-family:Tahoma">Xóa Vận Chuyển</h3>
+
+
+</p>
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <div class="card">
+            
+            <div class="card-body">
+        <dt>
+            Mã công ty
+        </dt>
+        <dt>
+            @Html.DisplayFor(model => model.MaCT)
+        </dt>
+        <dt>
+            Tên công ty
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenCT)
+        </dd>
+
+        <dt>
+            SĐT
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SDT)
+        </dd>
+
+        <dt>
+           Địa chỉ
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiaChi)
+        </dd>
+
+        <dt>
+            Cước phí
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CuocPhi)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="col-sm-6 pl-0">
+            <p class="text-right">
+                <button type="submit" class="btn btn-space btn-primary">Xóa</button>
+                <a href="@Url.Action("vanchuyen", "Admin")" button class="btn btn-space btn-secondary">Cancel</a>
+            </p>
+        </div>
+    }
+</div>
+</div>
+</div>
