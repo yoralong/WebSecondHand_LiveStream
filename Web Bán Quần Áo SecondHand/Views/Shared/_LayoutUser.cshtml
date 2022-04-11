@@ -182,7 +182,70 @@
         <div style="float: right; width: 45%">
             <iframe width="560" height="400" src="https://www.youtube.com/live_chat?v=ei7kbQhK1hA&embed_domain=calashop.somee.com"></iframe>
         </div>
+        <script src="https://apis.google.com/js/api.js"></script>
+        <script>
+            /**
+             * Sample JavaScript code for youtube.liveBroadcasts.list
+             * See instructions for running APIs Explorer code samples locally:
+             * https://developers.google.com/explorer-help/code-samples#javascript
+             */
 
+            function authenticate() {
+                return gapi.auth2.getAuthInstance()
+                    .signIn({ scope: "https://www.googleapis.com/auth/youtube.readonly" })
+                    .then(function () { console.log("Sign-in successful"); },
+                        function (err) { console.error("Error signing in", err); });
+            }
+            function loadClient() {
+                gapi.client.setApiKey("AIzaSyBVK5kJCG6_tnIABN0OjaWjiqTP3qUfkDk");
+                return gapi.client.load("https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest")
+                    .then(function () { console.log("GAPI client loaded for API"); },
+                        function (err) { console.error("Error loading GAPI client for API", err); });
+            }
+            // Make sure the client is loaded and sign-in is complete before calling this method.
+            function execute() {
+                return gapi.client.youtube.liveBroadcasts.list({
+                    "part": [
+                        "snippet"
+                    ],
+                    "id": [
+                        "ei7kbQhK1hA"
+                    ]
+                })
+                    .then(function (response) {
+                        // Handle the results here (response.result has the parsed body).
+                        console.log(response.result.items[0].snippet.liveChatId);
+                        execute1(response.result.items[0].snippet.liveChatId);
+                    },
+                        function (err) { console.error("Execute error", err); });
+            }
+            /// lay pageid
+            function execute1(id) {
+                return gapi.client.youtube.liveChatMessages.list({
+                    "liveChatId": `${id}`,
+                    "part": [
+                        "snippet"
+                    ],
+                    "maxResults": 500
+                })
+                    .then(function (response) {
+                        // Handle the results here (response.result has the parsed body).
+                        //const obj = JSON.parse(response);
+                        console.log("Comment", response);
+                        var total = response.result.pageInfo.totalResults;
+                        var list = new Array();
+                        for (var i = 0; i < total; i++) {
+                            //console.log(response.result.items[i].snippet.displayMessage);
+                            list.push(response.result.items[i].snippet.displayMessage);
+                        }
+                        console.log(list);
+                    },
+                        function (err) { console.error("Execute error", err); });
+            }
+            gapi.load("client:auth2", function () {
+                gapi.auth2.init({ client_id: "156899602035-f8b6bo5dt80s1io3cibjgti7knpjnnkb.apps.googleusercontent.com" });
+            });
+        </script>
     </div>
     
     
